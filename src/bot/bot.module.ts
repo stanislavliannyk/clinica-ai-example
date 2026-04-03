@@ -13,7 +13,7 @@ import { AppointmentsModule } from '../appointments/appointments.module';
     TelegrafModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({
-        token: config.getOrThrow('TELEGRAM_BOT_TOKEN'),
+        token: config.get('TELEGRAM_BOT_TOKEN') ?? process.env.TELEGRAM_BOT_TOKEN,
         middlewares: [session()],
       }),
       inject: [ConfigService],

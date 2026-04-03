@@ -5,7 +5,16 @@ services:
       - path: .env
         required: false
     environment:
-      DB_HOST: postgres
+      DB_HOST: ${DB_HOST:-postgres}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_NAME: ${DB_NAME:-clinic_bot}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: ${PORT:-3000}
     depends_on:
       postgres:
         condition: service_healthy

@@ -19,8 +19,10 @@ export class LlmService {
   private readonly model: string;
 
   constructor(private readonly config: ConfigService) {
-    this.openai = new OpenAI({ apiKey: config.get('OPENAI_API_KEY') ?? process.env.OPENAI_API_KEY });
-    this.model = config.get('OPENAI_MODEL', 'gpt-4o-mini');
+    const apiKey = process.env.OPENAI_API_KEY || config.get<string>('OPENAI_API_KEY') || '';
+    this.logger.log(`OPENAI_API_KEY present: ${!!apiKey}`);
+    this.openai = new OpenAI({ apiKey: apiKey || 'not-configured' });
+    this.model = process.env.OPENAI_MODEL || config.get('OPENAI_MODEL', 'gpt-4o-mini');
   }
 
   async detectIntent(text: string): Promise<Intent> {

@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
+  console.log('ENV KEYS:', Object.keys(process.env).filter(k => !k.startsWith('npm_')).join(', '));
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));

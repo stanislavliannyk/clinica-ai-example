@@ -19,7 +19,7 @@ export class LlmService {
   private readonly model: string;
 
   constructor(private readonly config: ConfigService) {
-    this.openai = new OpenAI({ apiKey: config.getOrThrow('OPENAI_API_KEY') });
+    this.openai = new OpenAI({ apiKey: config.get('OPENAI_API_KEY') ?? process.env.OPENAI_API_KEY });
     this.model = config.get('OPENAI_MODEL', 'gpt-4o-mini');
   }
 
